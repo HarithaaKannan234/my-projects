@@ -1,7 +1,7 @@
 import streamlit as st
 from googleapiclient.discovery import build
 import pandas as pd
-import matplotlib.pyplot as plt
+
 
 question_files = {
     "What are the names of all the videos and their corresponding channels?": "C:\\Users\\Admin\\Desktop\\Murdoch\\guvi\\projects\\YoutubeHK\\query1.csv",
