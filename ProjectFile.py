@@ -4,7 +4,7 @@ import pandas as pd
 
 
 question_files = {
-    "What are the names of all the videos and their corresponding channels?": "C:\\Users\\Admin\\Desktop\\Murdoch\\guvi\\projects\\YoutubeHK\\query1.csv",
+    "What are the names of all the videos and their corresponding channels?": "query1.csv",
     "Which channels have the most number of videos and how many videos do they have?": "C:\\Users\\Admin\\Desktop\\Murdoch\\guvi\\projects\\YoutubeHK\\query2.csv",
     "What are the top 10 most viewed videos and their respective channels?": "C:\\Users\\Admin\\Desktop\\Murdoch\\guvi\\projects\\YoutubeHK\\query3.csv",
     "How many comments were made on each video, and what are their corresponding video names?": "C:\\Users\\Admin\\Desktop\\Murdoch\\guvi\\projects\\YoutubeHK\\query4.csv",
