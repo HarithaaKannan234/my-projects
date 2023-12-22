@@ -16,16 +16,16 @@ question_files = {
     "Which videos have the highest number of comments, and what are their corresponding channel names?": "query10.csv",
 }
 
-# Title of the Streamlit app
+
 st.title("Youtube Channel - Analysed data")
 
-# Dropdown to select a question
+
 selected_question = st.selectbox("Select a question from the dropdown below to view analysed data", list(question_files.keys()))
 
-# Load the selected CSV file into a DataFrame
+
 df = pd.read_csv(question_files[selected_question])
 
-# Display the DataFrame as a table
+
 st.table(df)
 
 st.write("by Harithaa Kannan")
