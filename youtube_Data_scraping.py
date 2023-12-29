@@ -1,45 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 pip install google-api-python-client
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[13]:
-
-
 pip install pandas
-
-
-# In[9]:
-
-
 get_ipython().system('pip install google-api-python-client pymongo')
-
-
-# In[19]:
-
-
 import os
 from googleapiclient.discovery import build
 from pprint import pprint
@@ -51,7 +12,7 @@ api_version = "v3"
 channels = ["UCLpovxJVLBZrXJGCymB6LYw", "UC9anh3Cs_tqMkKHxVFAqeQA", "UC0cyuNScmlQ8oyMpTvv4YSQ","UC9s5vcA1shZGHx3O1__UyVA","UCL3bXmDdBadWGBLvP52T9lg"," UCC4P0TtsS2tBOwsLnvjrgwQ","UC8p3oT98Gb9VwzhMjHlWJEQ","UCqVEHtQoXHmUCfJ-9smpTSg","UCKjFW3fLTteXH4p6pir1H2Q ","UCMAwZx4IV9RYrN4CYaZyaSw "]
 
 
-# MongoDB connection
+
 client = MongoClient("mongodb://localhost:27017")
 db = client["Youtube_Assignment"]
 collection = db["Youtube_data"]
@@ -88,8 +49,7 @@ def youtube_channel(channel_id, youtube):
                 "Channel_Views": item["statistics"]["viewCount"],
                 "Channel_Description": item["snippet"]["description"],
                 "Playlist_Id": get_playlist_id(channel_id, youtube),
-                "Videos": []  # Initialize an empty list for videos
-            }
+                "Videos": [] 
             final_data.append(channel_info)
 
     return final_data
@@ -144,15 +104,15 @@ def video_details(video_ids, youtube):
                 "Like_Count": item["statistics"].get("likeCount", 0),
                 "Dislike_Count": item["statistics"].get("dislikeCount", 0),
                 "Favorite_Count": item["statistics"].get("favoriteCount", 0),
-                "Comment_Count": 0,  # Initialize comment count to 0
+                "Comment_Count": 0,  
                 "Duration": item["contentDetails"]["duration"],
                 "Thumbnail": item["snippet"]["thumbnails"]["default"]["url"],
                 "Caption_Status": item["contentDetails"]["caption"],
-                "Comments": []  # Initialize an empty list for comments
+                "Comments": [] 
             }
 
             try:
-                # Attempt to extract comments for the video with a limit of 100 comments
+               
                 comments_request = youtube.commentThreads().list(
                     part="snippet",
                     videoId=item["id"],
@@ -161,7 +121,7 @@ def video_details(video_ids, youtube):
                 )
                 comments_response = comments_request.execute()
 
-                # Set the actual comment count
+              
                 video_data["Comment_Count"] = len(comments_response.get("items", []))
 
                 for comment_item in comments_response.get("items", []):
@@ -174,20 +134,19 @@ def video_details(video_ids, youtube):
                     video_data["Comments"].append(comment_data)
 
             except Exception as e:
-                # Handle the exception (e.g., comments are disabled or not found)
+               
                 print(f"Error fetching comments for video {item['id']}: {str(e)}")
 
             video_details_list.append(video_data)
 
     return video_details_list
 
-# Example usage
+
 for channel_id in channels:
     youtube = get_youtube_service(api_key)
 
     channel_data = youtube_channel(channel_id, youtube)
-   
-    # Insert channel data into MongoDB
+ 
     
     if channel_data:
  
@@ -198,44 +157,20 @@ for channel_id in channels:
 
         video_data = video_details(playlist_video_ids, youtube)
     
-    # Insert video data under channel data into MongoDB
+    
     if channel_data:
         for video in video_data:
             collection.update_one({"Channel_Id": channel_data[0]["Channel_Id"]}, {"$push": {"Videos": video}})
 
         print("done")
 
-# Close MongoDB connection
+
 client.close()
-
-
-# In[3]:
-
-
 pip install streamlit
-
-
-# In[4]:
-
-
 import streamlit as st
 
-
-# In[6]:
-
-
 st.text('Fixed width text')
-st.markdown('_Markdown_') # see #*
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
+st.markdown('_Markdown_') 
 
 
 
