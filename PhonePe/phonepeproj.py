@@ -50,7 +50,7 @@ Top_user = pd.DataFrame(table6, columns = ("States", "Years", "Quarter", "Pincod
 
 
 st.title("PHONEPE DATA VISUALIZATION AND EXPLORATION")
-tab1 , tab2= st.tabs([ "***More Insights***","bruh"])
+tab1 , tab2= st.tabs([ "***More Insights***","Map"])
 
 with tab1:
     st.write("### Choose a Question")
